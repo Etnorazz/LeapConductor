@@ -1,3 +1,5 @@
+#text editor
+*.swp
 *.py[cod]
 
 # C extensions
