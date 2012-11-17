@@ -16,10 +16,7 @@ class AbletonAction:
     def songStopAction(self):
         pass
 
-    def tempoUpAction(self):
-        pass
-
-    def tempoDownAction(self):
+    def tempoChange(self, bpm):
         pass
 
     def volumeUpAction(self):

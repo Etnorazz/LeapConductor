@@ -1,5 +1,6 @@
 from lib import Leap
 import sys
+<<<<<<< HEAD
 from controller import AbletonController
 
 class LeapListener(Leap.Listener):
@@ -11,6 +12,14 @@ class LeapListener(Leap.Listener):
         for g in gestures:
             print g
     
+=======
+from gestures import GestureRecognizer
+
+class LeapListener(Leap.Listener):
+    def __init__(self,*args,**kwargs):
+        super(LeapListener,self).__init__(*args,**kwargs)
+        self.gr = GestureRecognizer()
+>>>>>>> 7d126dc88ca0b315e4917235b7afe0abb1f03e34
     def onInit(self, controller):
         print "Initialized"
 
@@ -21,7 +30,7 @@ class LeapListener(Leap.Listener):
         print "Disconnected"
 
     def onFrame(self,controller):
-        print "Frame"
+        self.gr.register_frame(controller.frame())
 
 def main():
     # Create a sample listener and assign it to a controller to receive events
@@ -31,6 +40,9 @@ def main():
     # Keep this process running until Enter is pressed
     print "Press Enter to quit..."
     sys.stdin.readline()
+    print "Showing"
+    listener.gr.freeze()
+    listener.gr.show()
 
     # The controller must be disposed of before the listener
     controller = None
