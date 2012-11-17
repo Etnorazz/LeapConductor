@@ -1,11 +1,11 @@
 from lib import Leap
 import sys
-from gestures import GestureRecognizer
+from gestures import TempoRecognizer
 
 class LeapListener(Leap.Listener):
     def __init__(self,*args,**kwargs):
         super(LeapListener,self).__init__(*args,**kwargs)
-        self.gr = GestureRecognizer()
+        self.gr = TempoRecognizer()
     def onInit(self, controller):
         print "Initialized"
 
@@ -28,7 +28,6 @@ def main():
     sys.stdin.readline()
     print "Showing"
     listener.gr.freeze()
-    listener.gr.show()
 
     # The controller must be disposed of before the listener
     controller = None
