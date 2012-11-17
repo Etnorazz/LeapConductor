@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<title>Using the Leap Application</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id$
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="using-the-leap-application">
+<h1 class="title">Using the Leap Application</h1>
+
+<p><em>Notice: This developer release of Leap Motion, Inc. software is confidential and intended for very limited distribution. Parties using this software must accept the SDK Agreement prior to obtaining this software and related documentation. This software and documentation are subject to copyright.</em></p>
+<hr class="docutils" />
+<p>This article describes the Leap application that acts as an intermediary between the Leap device and your Leap-enabled application.</p>
+<div class="contents topic" id="topics">
+<p class="topic-title first">Topics:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id1">Overview</a></li>
+<li><a class="reference internal" href="#menu-commands" id="id2">Menu commands</a></li>
+<li><a class="reference internal" href="#operating-modes" id="id3">Operating modes</a></li>
+<li><a class="reference internal" href="#diagnostics" id="id4">Diagnostics</a></li>
+<li><a class="reference internal" href="#application-log" id="id5">Application log</a></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id1">Overview</a></h1>
+<p>The Leap application communicates with the Leap device and transmits hand tracking data to Leap-enabled applications. Thus, the Leap application must be running when you access Leap data in your application.</p>
+<p>When the Leap application is running, it displays an icon in the notification area of the Windows Taskbar or Mac Finder bar. When the Leap device is plugged in and working properly, the icon turns green. The icon will flash yellow while the software is initializing and turn red if an error has occurred.</p>
+<p>When you first run the Leap software, it checks to see if you have logged in with your Leap developer credentials and whether you have the calibration file for your Leap device, which is necessary to run the Leap. The Leap software automatically downloads the calibration file for your device after you log in.</p>
+</div>
+<div class="section" id="menu-commands">
+<h1><a class="toc-backref" href="#id2">Menu commands</a></h1>
+<p>The Leap application has a number of commands that modify how tracking data is produced and which give you information about the state of the device. Access these commands through the menu attached to the application icon.</p>
+<p>The Leap application provides the following menu commands:</p>
+<ul class="simple">
+<li>Quality — allows you to specify whether the Leap prioritizes speed or precision when generating motion tracking data; see <a class="reference internal" href="#operating-modes">Operating modes</a></li>
+<li>Flip Tracking — reverses the horizontal axes so that the Leap device can be used in either orientation, with the USB cable on the left or right side</li>
+<li>Check for Updates — checks to see if an update for the Leap software and SDK is available</li>
+<li>Start Diagnostics — begins recording diagnostic data; see <a class="reference internal" href="#diagnostics">Diagnostics</a></li>
+<li>Show Log — displays a log of events generated by the Leap application; see <a class="reference internal" href="#application-log">Application log</a></li>
+<li>Visualizer — launches the Visualizer application; see <a class="reference external" href="Leap_Visualizer.html">Leap Visualizer</a></li>
+<li>About — provides the Leap application version number as well as links to our website and support email address</li>
+</ul>
+<p>Note that these commands are targeted toward developers. The consumer version of the Leap application will have a different set of user commands and options.</p>
+</div>
+<div class="section" id="operating-modes">
+<h1><a class="toc-backref" href="#id3">Operating modes</a></h1>
+<p>The Leap has several operating modes which determine how the application analyzes data. The following modes are user-selectable from the Quality menu of the Leap Application:</p>
+<ul class="simple">
+<li>Precision — prioritizes precision over speed</li>
+<li>Balanced — balances precision with speed</li>
+<li>High Speed — prioritizes speed over precision</li>
+<li>Low Resource — reduces the USB bandwidth used by the Leap</li>
+</ul>
+<p>The Leap also has a robust mode that improves the reliability of the tracking data in bright lighting conditions. Robust mode allows the Leap to operate in a wider range of environmental conditions; however, other performance characteristics may be reduced. The main  effects on performance are that there will be increased processing latency and very fast motions by the user will cause a loss of tracking data.</p>
+<p>The Leap automatically drops into robust mode when lighting conditions become poor. The Leap switches back into the last user-selected operating mode when lighting conditions improve (but will remain in robust mode for at least 30 seconds). The Leap application icon changes from green to red when in this mode and the quality menu is temporarily disabled.</p>
+</div>
+<div class="section" id="diagnostics">
+<h1><a class="toc-backref" href="#id4">Diagnostics</a></h1>
+<p>If you are having problems with the Leap software, please contact us so we can help you resolve the issue. We may ask you to reproduce the issue on your device and record some diagnostic information which you can send to <a class="reference external" href="https://developer.leapmotion.com">Leap Motion</a> to help us assess the problem. You can start and stop the recording of diagnostic information from the Leap application menu (on the Windows Taskbar or Mac Finder bar). The data is compressed and encrypted and is not useful for your local application debugging. The data recorded can grow large over time, so we do not recommend recording diagnostics for an extended period.</p>
+<p>To record diagnostics,</p>
+<ol class="arabic simple">
+<li>Select <em>Start Diagnostics</em> from the Leap application menu.</li>
+<li>Reproduce the problem (it may help to have the <a class="reference external" href="Leap_Visualizer.html">Leap Visualizer</a> running).</li>
+<li>Select <em>Stop Diagnostics</em> after a short period of time.</li>
+</ol>
+<p>The diagnostic files can be found in the following locations:</p>
+<ul class="simple">
+<li>On Mac: <tt class="docutils literal">~/Library/Application Support/Leap Motion</tt></li>
+<li>On Windows: <tt class="docutils literal"><span class="pre">C:\Users\&lt;user_name&gt;\AppData\Roaming\Leap</span> Motion</tt></li>
+</ul>
+<p><em>Note: These directories may be hidden by default.</em></p>
+</div>
+<div class="section" id="application-log">
+<h1><a class="toc-backref" href="#id5">Application log</a></h1>
+<p>To view events related to the Leap application, open the application log using the Leap application menu from the Windows Taskbar or Mac Finder bar. If you are having problems, we may ask you to copy the contents of this log and send it to <a class="reference external" href="https://developer.leapmotion.com">Leap Motion</a> to help us assess the problem.</p>
+<hr class="docutils" />
+<p>Copyright © 2012 Leap Motion, Inc. All rights reserved.</p>
+</div>
+</div>
+</body>
+</html>
