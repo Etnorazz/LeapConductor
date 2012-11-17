@@ -1,7 +1,16 @@
 from lib import Leap
 import sys
+from controller import AbletonController
 
 class LeapListener(Leap.Listener):
+
+    def __init__(self, gestures):
+        super(Leap.Listener, self).__init__()
+        self.ableton_controller = AbletonController(gestures)
+        print "Created an AbletonController supporting gestures:"
+        for g in gestures:
+            print g
+    
     def onInit(self, controller):
         print "Initialized"
 
