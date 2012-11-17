@@ -1,4 +1,5 @@
-import Leap
+from lib import Leap
+import sys
 
 class LeapListener(Leap.Listener):
     def onInit(self, controller):
