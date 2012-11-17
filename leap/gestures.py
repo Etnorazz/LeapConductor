@@ -26,15 +26,18 @@ def threshold(l,value):
             yield 0
 
 class TempoRecognizer:
-    def __init__(self):
+    def __init__(self,callback):
         self.average_velocity = Leap.Vector(0,0,0)
         self.angle_history = []
         self.velocity_history = []
+
         self._freeze = False
         self.changing = False
 
         self.last_change_time = None
         self.bpm = 0
+
+        self.callback = callback
 
     def freeze(self):
         self._freeze = True
@@ -43,7 +46,9 @@ class TempoRecognizer:
         if self.last_change_time:
             delta = time.time() - self.last_change_time
             self.bpm = (1-alpha)*self.bpm + alpha*delta
+            self.callback(self.bpm)
             print "BPM:",self.bpm
+
         self.last_change_time = time.time()
 
     def update_velocity(self,velocity,alpha = .3):
