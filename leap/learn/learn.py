@@ -4,14 +4,20 @@ import pickle
 import utils
 
 feature_generators = [
+    #finger stuff
     features.average_velocity,
     features.fingerVariance,
     features.avgFingers,
+
+    #finger histograms
+    features.position_histogram,
     features.velocity_histogram,
+
+    #hand histograms
     features.hand_velocity_histogram,
     features.palm_normal_histogram,
-    features.position_histogram,
     features.palm_position_histogram,
+    #features.palm_position_variance,
 ]
 
 class GestureLearner:

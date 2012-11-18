@@ -35,7 +35,7 @@ def avgFingers(frames):
         Return the square of the average number of fingers 
     """
     avg_fingers = sum([getNumFingers(frame) for frame in frames])  / len(frames)
-    avg_fingers = avg_fingers ** 8
+    avg_fingers = avg_fingers ** 10
     return [avg_fingers for i in range(10)]
 
 def fingerVariance(frames):
@@ -224,3 +224,16 @@ def palm_position_histogram(frames,bins = 4,range=(-1.,1.)):
         z = v.z/utils.norm(v)
         l[hround(x)][hround(y)][hround(z)] += 1
     return l
+
+def palm_position_variance(frames):
+    positions = []
+    for frame in frames:
+        for hand in frame.hands():
+            palm = hand.palm()
+            if palm:
+                p = palm.position
+                positions.append(p)
+    xs = [p.x for p in positions]
+    ys = [p.y for p in positions]
+    zs = [p.z for p in positions]
+    return [getVariance(xs),getVariance(ys),getVariance(zs)]
