@@ -7,11 +7,7 @@ feature_generators = [
     features.average_velocity,
     features.fingerVariance,
     features.avgFingers,
-    features.velocity_histogram,
-    features.hand_velocity_histogram,
-    features.palm_normal_histogram,
-    features.position_histogram,
-    features.palm_position_histogram,
+    features.velocity_histogram
 ]
 
 class GestureLearner:
@@ -19,9 +15,9 @@ class GestureLearner:
         self.classifier = svm.LinearSVC()
         self.feature_vectors = []
         self.classifications = []
+        self.gestures = []
         self.keys = {}
         self.index = 0
-        self.max_length = 0
 
     def get_feature_vector(self,gesture):
         """
@@ -38,6 +34,7 @@ class GestureLearner:
             Generate a list of feature vectors and train the classifier on them
         """
         feature_vectors = []
+        self.gestures += gestures
 
         for gesture in gestures:
             vector = self.get_feature_vector(gesture)
@@ -48,6 +45,7 @@ class GestureLearner:
                 self.keys[key] = self.index
                 self.index += 1
                 
+        print feature_vectors
         self.feature_vectors += feature_vectors
         self.classifications += [self.keys[a] for a in classifications]
 
@@ -58,20 +56,11 @@ class GestureLearner:
         """
             Predict a classification for the given feature
         """
-        if len(gesture) > self.max_length:
-            self.max_length = len(gesture)
         vector = self.get_feature_vector(gesture)
         num = self.classifier.predict([vector])[0]
         for key,value in self.keys.items():
             if value == num:
                 return key
-
-    def load_classifier(self, filename="classifier.pickle"):
-        """
-            Load the classifier
-        """
-        with open(filename,"r") as f:
-            self.classifier = pickle.load(f)
 
     def save_classifier(self,filename="classifier.pickle"):
         """
@@ -85,11 +74,12 @@ class GestureLearner:
             Load the classifier from a file
         """
         with open(filename,"r") as f:
-            self.feature_vectors,self.classifications,self.keys = pickle.load(f)
+            gestures,classifications,self.keys = pickle.load(f)
+        self.register_data(gestures,classifications)
 
     def save_data(self,filename="data.pickle"):
         """
             Save the classifier to a file
         """
         with open(filename,"w") as f:
-            pickle.dump([self.feature_vectors,self.classifications, self.keys],f)
+            pickle.dump([self.gestures,self.classifications, self.keys],f)

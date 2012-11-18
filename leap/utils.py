@@ -15,6 +15,12 @@ def subtract(vec1,vec2):
 def collapse(vec):
     return abs(vec.x)+abs(vec.y)+abs(vec.z)
 
+def ave_v(vectors):
+    xs = [v.x for v in vectors]
+    ys = [v.y for v in vectors]
+    zs = [v.z for v in vectors]
+    return Leap.Vector(ave(xs),ave(ys),ave(zs))
+
 def ave(l):
     if len(l) == 0:
         return 0
