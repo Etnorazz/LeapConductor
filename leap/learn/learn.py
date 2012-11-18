@@ -6,7 +6,7 @@ feature_generators = [
     features.feature1, 
 ]
 
-def GestureLearner:
+class GestureLearner:
     def __init__(self):
         self.classifier = svm.SVC()
 
