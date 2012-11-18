@@ -120,7 +120,7 @@ def average_velocity(frames):
 
 def list_3d(size):
     return [[[0 for i in range(size)] for j in range(size)] for k in range(size)]
-def velocity_histogram(frames,bins = 4,range=(-1.,1.)):
+def velocity_histogram(frames,bins = 8,range=(-1.,1.)):
     length = range[1]-range[0]
     bin_size = length/bins
 
@@ -139,7 +139,7 @@ def velocity_histogram(frames,bins = 4,range=(-1.,1.)):
                 l[hround(x)][hround(y)][hround(z)] += 1
     return l
 
-def hand_velocity_histogram(frames,bins = 4,range=(-1.,1.)):
+def hand_velocity_histogram(frames,bins = 8,range=(-1.,1.)):
     length = range[1]-range[0]
     bin_size = length/bins
 
@@ -157,7 +157,7 @@ def hand_velocity_histogram(frames,bins = 4,range=(-1.,1.)):
                 l[hround(x)][hround(y)][hround(z)] += 1
     return l
 
-def palm_normal_histogram(frames,bins = 4,range=(-1.,1.)):
+def palm_normal_histogram(frames,bins = 8,range=(-1.,1.)):
     length = range[1]-range[0]
     bin_size = length/bins
 
@@ -176,7 +176,7 @@ def palm_normal_histogram(frames,bins = 4,range=(-1.,1.)):
                 l[hround(x)][hround(y)][hround(z)] += 1
     return l
 
-def position_histogram(frames,bins = 4,range=(-1.,1.)):
+def position_histogram(frames,bins = 8,range=(-1.,1.)):
     length = range[1]-range[0]
     bin_size = length/bins
 
@@ -200,7 +200,7 @@ def position_histogram(frames,bins = 4,range=(-1.,1.)):
         l[hround(x)][hround(y)][hround(z)] += 1
     return l
 
-def palm_position_histogram(frames,bins = 4,range=(-1.,1.)):
+def palm_position_histogram(frames,bins = 8,range=(-1.,1.)):
     length = range[1]-range[0]
     bin_size = length/bins
 
