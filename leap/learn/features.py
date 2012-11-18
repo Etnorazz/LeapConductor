@@ -1,3 +1,7 @@
+import os,sys
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0,parentdir) 
+
 from lib import Leap
 import utils
 
@@ -16,8 +20,8 @@ def length(frames,amount_used=.1):
     num_frames = len(frames)
     num_used = int(amount_used*num_frames)
 
-    firsts = [[] or i in range(num_used)]
-    lasts = [[] or i in range(num_used)]
+    firsts = [[] for i in range(num_used)]
+    lasts = [[] for i in range(num_used)]
 
     for f,first in zip(frames[0:num_used],firsts):
         positions = get_positions(f)
@@ -28,7 +32,7 @@ def length(frames,amount_used=.1):
         for position in positions:
             last.append(position)
 
-    lengths = [utils.norm(utils.subtract(first,last)) for first,last in zip(firsts,lasts)]
+    lengths = [utils.norm(utils.subtract(utils.average_position(first),utils.average_position(last))) for first,last in zip(firsts,lasts)]
 
     return lengths
 
@@ -37,7 +41,7 @@ def average_position(frames):
     for frame in frames:
         for hand in frame.hands():
             for finger in hand.fingers():
-                valuns.append(finger.tip().position)
+                values.append(finger.tip().position)
     average_value = utils.average_position(values)
     return [average_value.x,average_value.y,average_value.z]
 
@@ -46,6 +50,6 @@ def average_velocity(frames):
     for frame in frames:
         for hand in frame.hands():
             for finger in hand.fingers():
-                values.append(finger.tip().velocity)
+                values.append(finger.velocity())
     average_value = utils.average_position(values)
     return [average_value.x,average_value.y,average_value.z]
