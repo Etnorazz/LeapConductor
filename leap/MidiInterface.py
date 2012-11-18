@@ -12,8 +12,10 @@ class MidiInterface():
     def send(self, data):
             self.sock.sendto(data, self.ADDR)
     def set_tempo(self, bpm):
-        x = bpm-20
-        x = int(math.floor(x/7.709))
+        y = 127.0/(250-50)
+        x = y*(bpm-50)
+        x = int(math.floor(x))
+        if x > 127: x=127
         self.send("/tempo %d" % x)
     def stop_track(self, track_num):
         data = "/track%d /stop 127" % track_num
