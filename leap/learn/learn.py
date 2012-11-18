@@ -4,13 +4,12 @@ import pickle
 import utils
 
 feature_generators = [
-    features.average_position,
     features.average_velocity,
 ]
 
 class GestureLearner:
     def __init__(self):
-        self.classifier = svm.SVC()
+        self.classifier = svm.LinearSVC()
         self.feature_vectors = []
         self.classifications = []
 
@@ -38,6 +37,8 @@ class GestureLearner:
         self.classifications += classifications
 
     def learn(self):
+        print self.feature_vectors
+        print self.classifications
         self.classifier.fit(self.feature_vectors,self.classifications)
 
     def predict(self,gesture):
@@ -45,6 +46,8 @@ class GestureLearner:
             Predict a classification for the given feature
         """
         vector = self.get_feature_vector(gesture)
+        print vector
+        print self.classifier.predict([vector])
         return self.classifier.predict([vector])[0]
 
     def save_classifier(self,filename="classifier.pickle"):
@@ -65,5 +68,6 @@ class GestureLearner:
         """
             Save the classifier to a file
         """
+        print self.feature_vectors
         with open(filename,"w") as f:
             pickle.dump([self.feature_vectors,self.classifications],f)
