@@ -6,6 +6,8 @@ from lib import Leap
 import utils
 
 def getVariance(nums):
+    if len(nums) == 0:
+        return 0
     count = len(nums)
     ev = sum(nums) / count
     variance = sum(map(lambda x: (x-ev)**2, nums)) / count
@@ -17,7 +19,24 @@ def get_positions(frame):
         for finger in hand.fingers():
             positions.append(finger.tip().position)
     return positions
+def getNumFingers(frame):
+    hands = frame.hands()
+    return sum([len(hand.fingers())*1.0 for hand in hands])
 
+def getNumHands(frame):
+    hands = frame.hands()
+    return len(hands)*1.0
+
+
+
+
+def avgFingers(frames):
+    """
+        Return the average number of fingers per hand
+    """
+    avg_fingers =sum([getNumFingers(frame) for frame in frames]) / sum([getNumHands(frame) for frame in frames])
+    print avg_fingers
+    return avg_fingers
 
 def fingerVariance(frames):
     """
