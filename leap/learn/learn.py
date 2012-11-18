@@ -6,6 +6,7 @@ import utils
 feature_generators = [
     features.average_position,
     features.average_velocity,
+    features.variance
 ]
 
 class GestureLearner:
