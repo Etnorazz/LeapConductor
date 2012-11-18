@@ -1,6 +1,6 @@
 from lib import Leap
 import sys
-from gestures import TempoRecognizer
+from tempo import TempoRecognizer
 
 def f(a):
     pass
