@@ -8,7 +8,7 @@ class StopAllListener(Leap.Listener):
     def __init__(self, callback, controller):
         self.controller = controller
         self.callback = callback
-        super(LeapListener, self).__init__()
+        super(StopAllListener, self).__init__()
 
     def onInit(self, controller): 
         self.prev_vel = []
@@ -27,18 +27,18 @@ class StopAllListener(Leap.Listener):
                 self.previousVelocity = (1-self.alpha)*self.previousVelocity + self.alpha*hand.velocity().x
             else: 
                 self.previousVelocity = 0
-            if numFingers > 1 and self.shouldAppend(self.previousVelocity): 
+            if numFingers == 0 and self.shouldAppend(self.previousVelocity): 
                 self.prev_vel.append("")
-                if len(self.prev_vel) > 10:
-                    #self.callback(self.controller)
-                    print "detected stop gesture"
+                if len(self.prev_vel) > 200:
+                    print len(self.prev_vel), 
                     self.prev_vel = []
+                    self.callback(self.controller)
             else: 
                 self.prev_vel = []
                 self.previosVelocity = 0
 
     def shouldAppend(self, vel): 
-        return vel > 200
+        return vel > 300
 
 
 

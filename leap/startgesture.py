@@ -1,29 +1,13 @@
 from lib import Leap
 import sys 
-"""
-def main(): 
-    listener = StopTrackListener() 
-    controller = Leap.Controller(listener) 
-
-    raiseListener = RaiseVolumeListener() 
-    raiseController = Leap.Controller(raiseListener)
-
-    lowerListener = LowerVolumeListener() 
-    lowerController = Leap.Controller(lowerListener) 
-
-
-    print "Press Enter to quit" 
-    sys.stdin.readline() 
-
-    controller = None
-"""
 
 class StopTrackListener(Leap.Listener): 
 
-    def __init__(self, callback, controller):
-        self.controller = controller 
-        self.callback = callback
-
+    def __init__(self, callback, controller): 
+        super(StopTrackListener, self).__init__()
+        self.callback = callback 
+        self.controller = controller
+        
     def onInit(self, controller): 
         self.previousStops = []
         self.alpha = 0.3
@@ -43,16 +27,17 @@ class StopTrackListener(Leap.Listener):
                 self.previousVelocity = 0
             if numFingers < 1 and self.previousVelocity < 200: 
                 self.previousStops.append("one")
-                if len(self.previousStops) > 8:
-                    self.previousStops = []
+                if len(self.previousStops) > 20:
                     self.callback(self.controller)
             else: 
                 self.previousStops = []
 
 class LowerVolumeListener(Leap.Listener): 
-    def __init__(self, callback, controller):
-        self.controller = controller 
-        self.callback = callback
+
+    def __init__(self, callback, controller): 
+        super(LowerVolumeListener, self).__init__()
+        self.callback = callback 
+        self.controller = controller
 
     def onInit(self, controller): 
         self.prev_vel = []
@@ -73,9 +58,8 @@ class LowerVolumeListener(Leap.Listener):
                 self.previousVelocity = 0
             if numFingers > 1 and self.shouldAppend(self.previousVelocity): 
                 self.prev_vel.append("")
-                if len(self.prev_vel) > 4:
+                if len(self.prev_vel) > 20:
                     self.callback(self.controller)
-                    self.prev_vel = []
             else: 
                 self.prev_vel = []
                 self.previosVelocity = 0

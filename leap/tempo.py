@@ -1,11 +1,11 @@
 from lib import Leap
-import sys
-import math
 import time
 from utils import *
 
-class TempoRecognizer:
+class TempoListener(Leap.Listener):
     def __init__(self,callback, controller):
+        super(TempoListener,self).__init__()
+
         self.average_velocity = Leap.Vector(0,0,0)
         self.angle_history = []
         self.velocity_history = []
@@ -26,7 +26,7 @@ class TempoRecognizer:
     def value(self):
         return self.bpm
 
-    def change(self,alpha = None,debug = False):
+    def register_change(self,alpha = None,debug = False):
         if not alpha:
             alpha = self.default_alpha
 
@@ -49,7 +49,7 @@ class TempoRecognizer:
             angle = dot(self.average_velocity,velocity)/(n)
             if angle<self.threshold_angle:
                 if not self.changing:
-                    self.change()
+                    self.register_change()
                 self.changing = True
             else:
                 self.changing = False
@@ -58,15 +58,22 @@ class TempoRecognizer:
         self.average_velocity = add(mul(self.average_velocity,(1-alpha)),mul(velocity,alpha))
         self.velocity_history.append(norm(self.average_velocity))
 
-    def register_frame(self,frame):
+    def onInit(self, controller):
+        print "Initialized"
+    def onConnect(self, controller):
+        print "Connected"
+    def onDisconnect(self, controller):
+        print "Disconnected"
+    def onFrame(self,controller):
+        frame = controller.frame()
+
         hands = frame.hands()
-        if len(hands)>0:
-            hand = hands[0]
-            fingers = hand.fingers()
-            if len(fingers)>0:
-                finger = fingers[0]
+        for hand in hands:
+            for finger in hand.fingers():
+                if finger.isTool():
+                    posistion = finger.tip().position
+                    velocity = finger.velocity()
 
-                posistion = finger.tip().position
-                velocity = finger.velocity()
+                    self.update_velocity(velocity)
 
-                self.update_velocity(velocity)
+                    return
