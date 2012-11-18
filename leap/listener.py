@@ -24,7 +24,7 @@ class LeapListener(Leap.Listener):
 
 def main():
     # Create a sample listener and assign it to a controller to receive events
-    listener = LeapListener(['tempoChange'])
+    listener = LeapListener(['tempoChange', 'volumeUp', 'volumeDown'])
     controller = Leap.Controller(listener)
 
     # Keep this process running until Enter is pressed
