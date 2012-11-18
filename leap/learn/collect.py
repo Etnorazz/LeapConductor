@@ -47,26 +47,40 @@ def listen(gesture_list):
             print "Recording...",
             listener.start_recording()
 
-gLearner = GestureLearner() 
+def guess(gLearner): 
+    gesture_list = []
+    print "Press Enter to start recgnizing",
+    listener = Listener() 
+    controller = Leap.Controller(listener)
+    letter = sys.stdin.readline()
+    listener.start_recording()
+    sys.stdin.readline()
+    gesture_list = listener.stop_recording()
+
+    print gLearner.predict(gesture_list)
+
+
 print """Hello, welcome to the gesture learner, please enter one of the following options: 
         learn - Learn a new gesture 
         recognize - Let the program guess what you are trying to input 
         q - Quit""" 
 print "Enter Command: ",
+
+gLearner = GestureLearner() 
 while True: 
     command = sys.stdin.readline()
     if "learn" in command: 
         print "Enter the name of the gesture: ", 
         import binascii 
         gesture_name = int(binascii.hexlify(sys.stdin.readline().lower()), 16)
-        print gesture_name
         gesture_list = []
         listen(gesture_list)
 
         gLearner.register_data(gesture_list, [gesture_name for i in gesture_list])
         gLearner.save_data()
     elif "recognize" in command: 
-        print "recognize" 
+        gLearner.learn()
+        guess(gLearner)     
         print "Enter Command: ", 
     elif command[0] == "q": 
         print "Goodbye"

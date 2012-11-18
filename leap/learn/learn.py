@@ -44,8 +44,8 @@ class GestureLearner:
         """
             Predict a classification for the given feature
         """
-        vector = get_feature_vector(gesture)
-        self.classifier.predict(vector)
+        vector = self.get_feature_vector(gesture)
+        return self.classifier.predict([vector])[0]
 
     def save_classifier(self,filename="classifier.pickle"):
         """
