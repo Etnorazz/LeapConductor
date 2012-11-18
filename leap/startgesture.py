@@ -20,6 +20,10 @@ def main():
 
 class StopTrackListener(Leap.Listener): 
 
+    def __init__(self, callback, controller):
+        self.controller = controller 
+        self.callback = callback
+
     def onInit(self, controller): 
         self.previousStops = []
         self.alpha = 0.3
@@ -41,11 +45,15 @@ class StopTrackListener(Leap.Listener):
                 self.previousStops.append("one")
                 if len(self.previousStops) > 8:
                     self.previousStops = []
-                    print "Stop" 
+                    self.callback(self.controller)
             else: 
                 self.previousStops = []
 
 class LowerVolumeListener(Leap.Listener): 
+    def __init__(self, callback, controller):
+        self.controller = controller 
+        self.callback = callback
+
     def onInit(self, controller): 
         self.prev_vel = []
         self.alpha = 0.3
@@ -66,7 +74,7 @@ class LowerVolumeListener(Leap.Listener):
             if numFingers > 1 and self.shouldAppend(self.previousVelocity): 
                 self.prev_vel.append("")
                 if len(self.prev_vel) > 4:
-                    print hand.velocity().y
+                    self.callback(self.controller)
                     self.prev_vel = []
             else: 
                 self.prev_vel = []
