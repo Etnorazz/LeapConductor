@@ -139,6 +139,42 @@ def velocity_histogram(frames,bins = 4,range=(-1.,1.)):
                 l[hround(x)][hround(y)][hround(z)] += 1
     return l
 
+def hand_velocity_histogram(frames,bins = 4,range=(-1.,1.)):
+    length = range[1]-range[0]
+    bin_size = length/bins
+
+    def hround(v):
+        return min(bins-1,int((v-range[0])/bin_size))
+
+    l = list_3d(bins)
+    for frame in frames:
+        for hand in frame.hands():
+            v = hand.velocity()
+            vector = Leap.Vector(v.x,v.y,v.z)
+            x = v.x/utils.norm(vector)
+            y = v.y/utils.norm(vector)
+            z = v.z/utils.norm(vector)
+            l[hround(x)][hround(y)][hround(z)] += 1
+    return l
+
+def palm_normal_histogram(frames,bins = 4,range=(-1.,1.)):
+    length = range[1]-range[0]
+    bin_size = length/bins
+
+    def hround(v):
+        return min(bins-1,int((v-range[0])/bin_size))
+
+    l = list_3d(bins)
+    for frame in frames:
+        for hand in frame.hands():
+            v = hand.palm().direction
+            vector = Leap.Vector(v.x,v.y,v.z)
+            x = v.x/utils.norm(vector)
+            y = v.y/utils.norm(vector)
+            z = v.z/utils.norm(vector)
+            l[hround(x)][hround(y)][hround(z)] += 1
+    return l
+
 def position_histogram(frames,bins = 4,range=(-1.,1.)):
     length = range[1]-range[0]
     bin_size = length/bins
@@ -153,6 +189,29 @@ def position_histogram(frames,bins = 4,range=(-1.,1.)):
             for finger in hand.fingers():
                 p = finger.tip().position
                 positions.append(p)
+    average_p = utils.ave_v(positions)
+    for index,position in enumerate(positions):
+        positions[index] = utils.subtract(position,average_p)
+        v = positions[index]
+        x = v.x/utils.norm(v)
+        y = v.y/utils.norm(v)
+        z = v.z/utils.norm(v)
+        l[hround(x)][hround(y)][hround(z)] += 1
+    return l
+
+def palm_position_histogram(frames,bins = 4,range=(-1.,1.)):
+    length = range[1]-range[0]
+    bin_size = length/bins
+
+    def hround(v):
+        return min(bins-1,int((v-range[0])/bin_size))
+
+    l = list_3d(bins)
+    positions = []
+    for frame in frames:
+        for hand in frame.hands():
+            p = hand.palm().position
+            positions.append(p)
     average_p = utils.ave_v(positions)
     for index,position in enumerate(positions):
         positions[index] = utils.subtract(position,average_p)

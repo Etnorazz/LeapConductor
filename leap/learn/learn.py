@@ -8,7 +8,10 @@ feature_generators = [
     features.fingerVariance,
     features.avgFingers,
     features.velocity_histogram,
-    features.position_histogram
+    features.hand_velocity_histogram,
+    features.palm_normal_histogram,
+    features.position_histogram,
+    features.palm_position_histogram,
 ]
 
 class GestureLearner:
@@ -45,7 +48,6 @@ class GestureLearner:
                 self.keys[key] = self.index
                 self.index += 1
                 
-        print feature_vectors
         self.feature_vectors += feature_vectors
         self.classifications += [self.keys[a] for a in classifications]
 
@@ -62,7 +64,6 @@ class GestureLearner:
         num = self.classifier.predict([vector])[0]
         for key,value in self.keys.items():
             if value == num:
-                print self.classifier.decision_function([vector])
                 return key
 
     def load_classifier(self, filename="classifier.pickle"):
