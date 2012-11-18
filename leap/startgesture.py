@@ -82,6 +82,7 @@ class StartTrackListener(Leap.Listener):
         self.history = [0]
         self.alpha = 0.3
         self.theta = 2500
+        self.threshold = 15
         self.previousCloseness = 0
 
     def onFrame(self, controller): 
@@ -99,11 +100,12 @@ class StartTrackListener(Leap.Listener):
             if palm1 and palm2:
                 closeness = collapse(subtract(pos1, pos2))
                 k_closeness = (1-self.alpha)*closeness + self.alpha*self.history[-1]
+                #print k_closeness, len(self.history)
                 if k_closeness > self.theta:
-                    if len(self.history) > 10:
+                    self.history.append(k_closeness)
+                    if len(self.history) > self.threshold:
                         self.callback(self.controller)
                         self.history = [0]
-                    self.history.append(k_closeness)
                 else:
                     self.history = [0]
             else:

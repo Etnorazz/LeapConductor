@@ -22,6 +22,8 @@ class TempoListener(Leap.Listener):
         self.default_alpha = .3 #for the kalman filters
         self.threshold_angle = .7
         self.threshold_speed = .1
+        self.threshold_count = 3
+
 
     def value(self):
         return self.bpm
