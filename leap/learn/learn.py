@@ -5,7 +5,7 @@ import utils
 
 feature_generators = [
     features.average_velocity,
-    features.variance
+    #features.variance
 ]
 
 class GestureLearner:
@@ -38,7 +38,7 @@ class GestureLearner:
 
         for key in classifications: 
             if key not in self.keys:
-                self.keys[self.index] = key 
+                self.keys[key] = self.index
                 self.index += 1
                 
         self.feature_vectors += feature_vectors
@@ -52,7 +52,10 @@ class GestureLearner:
             Predict a classification for the given feature
         """
         vector = self.get_feature_vector(gesture)
-        return self.keys[self.classifier.predict([vector])[0]]
+        num = self.classifier.predict([vector])[0]
+        for key,value in self.keys.items():
+            if value == num:
+                return key
 
     def save_classifier(self,filename="classifier.pickle"):
         """
