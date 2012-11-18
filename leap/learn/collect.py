@@ -66,7 +66,7 @@ while True:
         gLearner.register_data(gesture_list, [gesture_name for i in gesture_list])
         gLearner.save_data()
     elif "recognize" in command: 
-        print "recognize" 
+
         print "Enter Command: ", 
     elif command[0] == "q": 
         print "Goodbye"
