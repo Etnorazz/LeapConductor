@@ -15,6 +15,7 @@ class GestureLearner:
         self.classifier = svm.LinearSVC()
         self.feature_vectors = []
         self.classifications = []
+        self.gestures = []
         self.keys = {}
         self.index = 0
 
@@ -33,6 +34,7 @@ class GestureLearner:
             Generate a list of feature vectors and train the classifier on them
         """
         feature_vectors = []
+        self.gestures += gestures
 
         for gesture in gestures:
             vector = self.get_feature_vector(gesture)
@@ -72,11 +74,12 @@ class GestureLearner:
             Load the classifier from a file
         """
         with open(filename,"r") as f:
-            self.feature_vectors,self.classifications,self.keys = pickle.load(f)
+            gestures,classifications,self.keys = pickle.load(f)
+        self.register_data(gestures,classifications)
 
     def save_data(self,filename="data.pickle"):
         """
             Save the classifier to a file
         """
         with open(filename,"w") as f:
-            pickle.dump([self.feature_vectors,self.classifications, self.keys],f)
+            pickle.dump([self.gestures,self.classifications, self.keys],f)
