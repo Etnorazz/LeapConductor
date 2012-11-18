@@ -85,6 +85,9 @@ while True:
     elif command[0] == "q": 
         print "Goodbye"
         break
+    elif "load" in command: 
+        gLearner.load_data() 
+        print "Enter Command: ",
     else: 
         print """Unrecognized command, usage:
         learn - Learn a new gesture 
