@@ -1,51 +1,51 @@
-### From a series of frames, extract useful features
-## Features:
-# Average of the first n derivatives
-# Percentage time for each finger configuration
-#
-import numpy as np
-from scipy.interpolate import Rbf
-import matplotlib.pyplot as plt
-from matplotlib import cm
+from lib import Leap
+import utils
 
-def feature1(frames):
+def length(frames,amount_used=.1):
     """
-    Average of the first derivative
+        Returns the average distance each finger moves in the gesture
     """
-    w = np.random.rand(100)*4.0-2.0
-    x = np.random.rand(100)*4.0-2.0
-    y = np.random.rand(100)*4.0-2.0
-    z = x*np.exp(-x**2-y**2-w**2)
-    ti = np.linspace(-2.0, 2.0, 100)
-    WI, XI, YI = np.meshgrid(ti, ti)
+    def get_positions(frame):
+        hands = frame.hands()
+        positions = []
+        for hand in hands:
+            for finger in hand.fingers():
+                positions.append(finger.tip().position)
+        return positions
 
-    rbf = Rbf(w, x, y, z, epsilon=2)
-    ZI = rbf(XI, YI)
+    num_frames = len(frames)
+    num_used = int(amount_used*num_frames)
 
-    n = plt.normalize(-2., 2.)
-    plt.subplot(1,1,1)
-    plt.pcolor(XI, YI, ZI, cmap=cm.jet)
-    plt.scatter(x, y, 100, z, cmap=cm.jet)
-    plt.title('RBF interpolation - multiquadrics')
-    plt.xlim(-2, 2)
-    plt.ylim(-2, 2)
-    plt.colorbar()
-    plt.show()
+    firsts = [[] or i in range(num_used)]
+    lasts = [[] or i in range(num_used)]
 
-feature1([])
+    for f,first in zip(frames[0:num_used],firsts):
+        positions = get_positions(f)
+        for position in positions:
+            first.append(position)
+    for f,last in zip(frames[-num_used:],lasts):
+        positions = get_positions(f)
+        for position in positions:
+            last.append(position)
 
+    lengths = [utils.norm(utils.subtract(first,last)) for first,last in zip(firsts,lasts)]
 
-def feature2(frames):
-    """
-    Average of the second derivative
-    """
-    pass
+    return lengths
 
-def feature3(frames):
-    """
-    Average of the third derivative
-    """
-    pass
+def average_position(frames):
+    values = []
+    for frame in frames:
+        for hand in frame.hands():
+            for finger in hand.fingers():
+                valuns.append(finger.tip().position)
+    average_value = utils.average_position(values)
+    return [average_value.x,average_value.y,average_value.z]
 
-def feature4(frames):
-    pass
+def average_velocity(frames):
+    values = []
+    for frame in frames:
+        for hand in frame.hands():
+            for finger in hand.fingers():
+                values.append(finger.tip().velocity)
+    average_value = utils.average_position(values)
+    return [average_value.x,average_value.y,average_value.z]
