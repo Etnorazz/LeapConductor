@@ -28,7 +28,7 @@ class TempoRecognizer:
         if self.last_change_time:
             delta = time.time() - self.last_change_time
             if delta > self.threshold_speed:
-                self.bpm = (1-alpha)*self.bpm + alpha*(60/delta)
+                self.bpm = (1-alpha)*self.bpm + alpha*(30/delta)
                 self.callback(self.bpm)
                 if debug:
                     print "BPM:",self.bpm
