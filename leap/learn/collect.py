@@ -15,12 +15,13 @@ class Listener(Leap.Listener):
     def onFrame(self, controller): 
         if self.recording: 
             self.frames.append(controller.frame())
+
     def start_recording(self): 
         self.recording = True
 
     def stop_recording(self): 
         self.recording = False 
-        return_list = self.frames 
+        return_list = [frame for frame in self.frames]
         self.frames = [] 
         return return_list
 
@@ -55,15 +56,15 @@ while True:
     command = sys.stdin.readline()
     if "learn" in command: 
         print "Enter the name of the gesture: ", 
-        gesture_name = float(sys.stdin.readline())
-
+        import binascii 
+        gesture_name = int(binascii.hexlify(sys.stdin.readline().lower()), 16)
+        print gesture_name
         gesture_list = []
         listen(gesture_list)
 
         gLearner = GestureLearner() 
         gLearner.register_data(gesture_list, [gesture_name for i in gesture_list])
         gLearner.save_data()
-
     elif "recognize" in command: 
         print "recognize" 
         print "Enter Command: ", 

@@ -64,7 +64,5 @@ class GestureLearner:
         """
             Save the classifier to a file
         """
-        print self.feature_vectors
-
-        with open(filename,"w") as f:
+        with open(filename,"a") as f:
             pickle.dump([self.feature_vectors,self.classifications],f)
