@@ -91,11 +91,11 @@ class GestureLearner:
             Load the classifier from a file
         """
         with open(filename,"r") as f:
-            self.feature_vectors,self.classifications,self.keys = pickle.load(f)
+            self.feature_vectors,self.classifications,self.keys,self.index = pickle.load(f)
 
     def save_data(self,filename="data.pickle"):
         """
             Save the classifier to a file
         """
         with open(filename,"w") as f:
-            pickle.dump([self.feature_vectors,self.classifications, self.keys],f)
+            pickle.dump([self.feature_vectors,self.classifications, self.keys,self.index],f)
