@@ -21,3 +21,7 @@ class MidiInterface():
     def play_track(self, track_num):
         data = "/track%d /play 1" % track_num
         self.send(data)
+    def vol_track(self, track_num, vol):
+        data = "/track%d /vol %d" % (track_num, vol)
+        self.send(data)
+        
