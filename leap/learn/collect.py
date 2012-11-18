@@ -60,7 +60,7 @@ def guess(gLearner):
         if listener.recording: 
             print "Stoping record" 
             print "Enter to start recording",
-            gLearner.predict(listener.stop_recording())
+            print gLearner.predict(listener.stop_recording())
         else: 
             print "Starting record"
             print "Recording...",
@@ -81,7 +81,7 @@ while True:
         import binascii 
         gesture_name = int(binascii.hexlify(sys.stdin.readline().lower()), 16)
         """
-        gesture_name = float(sys.stdin.readline()) 
+        gesture_name = sys.stdin.readline()
         gesture_list = []
         listen(gesture_list)
 

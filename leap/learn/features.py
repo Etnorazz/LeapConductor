@@ -27,9 +27,9 @@ def fingerVariance(frames):
     ys = []
     zs = []
     for frame in frames:
-        xs.append([pos.x for pos in get_positions(frame)])
-        ys.append([pos.y for pos in get_positions(frame)])
-        zs.append([pos.z for pos in get_positions(frame)])
+        xs.extend([pos.x for pos in get_positions(frame)])
+        ys.extend([pos.y for pos in get_positions(frame)])
+        zs.extend([pos.z for pos in get_positions(frame)])
     return [getVariance(xs), getVariance(ys), getVariance(zs)]
 
 def handVariance(frames):
