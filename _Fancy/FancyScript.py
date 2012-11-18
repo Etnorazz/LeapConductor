@@ -1,6 +1,7 @@
 # Source Generated with Decompyle++
 # File: FancyScript.pyc (Python 2.5)
 
+import sys # may not need
 import Live
 from _Framework.ControlSurface import ControlSurface
 from _Framework.DeviceComponent import DeviceComponent
@@ -9,6 +10,11 @@ from _Framework.InputControlElement import *
 from _Framework.ButtonElement import ButtonElement
 from _Framework.EncoderElement import EncoderElement
 from SpecialMixerComponent import SpecialMixerComponent
+
+#new import
+from _Framework.ClipSlotComponent import ClipSlotComponent
+from _Framework.SceneComponent import SceneComponent
+from _Framework.SessionComponent import SessionComponent
 
 class FancyScript(ControlSurface):
     ''' A generic script class with predefined behaviour.
@@ -34,12 +40,38 @@ class FancyScript(ControlSurface):
             
             if list(descriptions.keys()).count('PAD_TRANSLATION') > 0:
                 self.set_pad_translations(descriptions['PAD_TRANSLATION'])
-            
-        
+        #delete this print
+        self.log_message("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+str(type(macro_map_mode)))
         self._init_mixer_component(volume_controls, trackarm_controls, mixer_options, global_channel, volume_map_mode)
         self._init_device_component(device_controls, bank_controls, global_channel, macro_map_mode)
         self._init_transport_component(transport_controls, global_channel, macro_map_mode) #that last arg is new and shold be deleted
+        #this is a new method call
+        self._init_clip_slot_component(volume_controls)#this should take some args)
+        #this is too
+        self._init_session_component(global_channel, 3, 1)
         self.set_suppress_rebuild_requests(False)
+
+    def _init_session_component(self, global_channel, num_tracks, num_scenes):
+        self._session_component = SessionComponent(num_tracks, num_scenes)
+        self._session_selected_scene = self._session_component.selected_scene()
+        stop_buttons = []
+        for i in range(num_tracks):
+            stopper = ButtonElement(True, MIDI_CC_TYPE, global_channel, (3, 6, 9)[i])
+            stopper.name = 'Clip_Stop_Button'
+            stop_buttons = stop_buttons + [stopper]
+            clip_start_button = ButtonElement(True, MIDI_CC_TYPE, global_channel, (2, 5, 8)[i])
+            clip_start_button.name = 'Clip_Start_Button'
+            self._session_selected_scene.clip_slot(i).set_launch_button(clip_start_button)
+        #self._session_component.set_stop_track_clip_buttons(stop_buttons)
+
+    def _init_clip_slot_component(self, volume_controls):
+        num_strips = len(volume_controls)
+        num_scenes = 1 # this is not always true, just in our case
+        
+        b1 = ButtonElement(False, MIDI_CC_TYPE, 1, 3)
+        b2 = ButtonElement(False, MIDI_CC_TYPE, 1, 6)
+        b3 = ButtonElement(False, MIDI_CC_TYPE, 1, 9)
+
 
     
     def handle_sysex(self, midi_bytes):
