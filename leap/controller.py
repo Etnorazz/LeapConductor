@@ -3,7 +3,6 @@ from abletonactions import *
 
 from tempo import TempoListener
 from startgesture import *
-from starttrack import *
 from testlistener import *
 
 from MidiInterface import *
@@ -21,7 +20,7 @@ class AbletonController:
         'lowerVolume': (lowerVolumeAction, LowerVolumeListener),
         'raiseVolume': (raiseVolumeAction, RaiseVolumeListener),
         'startTrack': (trackStartAction, StartTrackListener),
-        #'test': (trackSt
+        #'test': (trackStartAction, TestListener)
     }
 
 
@@ -43,5 +42,4 @@ class AbletonController:
             print "Initialized a recognizer for %s" % g_name
 
     def destroy(self):
-        for index,c in self.controllers.enumerate():
-            self.controllers = None
+        self.controllers = None
