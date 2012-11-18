@@ -1,14 +1,14 @@
 ## Event handlers for gesture events
 
-def tempoChangeAction(controller, bpm):
-    print "Received tempo %f " % bpm 
-    controller.midi_interface.set_tempo(bpm)
-
 def __init__():
     pass
 
 def trackStartAction():
     pass
+
+def tempoChangeAction(controller, bpm):
+    print "Received tempo %f " % bpm 
+    controller.midi_interface.set_tempo(bpm)
 
 def trackStopAction(controller):
     print "Stop Track"
