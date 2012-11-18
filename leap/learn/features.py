@@ -5,7 +5,34 @@ sys.path.insert(0,parentdir)
 from lib import Leap
 import utils
 
-def variance(frames):
+def getVariance(nums):
+    count = len(nums)
+    ev = sum(nums) / count
+    variance = sum(map(lambda x: (x-ev)**2, nums)) / count
+    return variance
+def get_positions(frame):
+    hands = frame.hands()
+    positions = []
+    for hand in hands:
+        for finger in hand.fingers():
+            positions.append(finger.tip().position)
+    return positions
+
+
+def fingerVariance(frames):
+    """
+        Return the variance of the finger positions
+    """
+    xs = []
+    ys = []
+    zs = []
+    for frame in frames:
+        xs.append([pos.x for pos in get_positions(frame)])
+        ys.append([pos.y for pos in get_positions(frame)])
+        zs.append([pos.z for pos in get_positions(frame)])
+    return [getVariance(xs), getVariance(ys), getVariance(zs)]
+
+def handVariance(frames):
     """
         Return the variance of the values
     """
@@ -24,11 +51,6 @@ def variance(frames):
                     xs.append(pos.x)
                     ys.append(pos.y)
                     zs.append(pos.z)
-    def getVariance(nums):
-        count = len(nums)
-        ev = sum(nums) / count
-        variance = sum(map(lambda x: (x-ev)**2, nums)) / count
-        return variance
     xvar = getVariance(xs)
     yvar = getVariance(ys)
     zvar = getVariance(zs)
@@ -38,13 +60,6 @@ def length(frames,amount_used=.1):
     """
         Returns the average distance each finger moves in the gesture
     """
-    def get_positions(frame):
-        hands = frame.hands()
-        positions = []
-        for hand in hands:
-            for finger in hand.fingers():
-                positions.append(finger.tip().position)
-        return positions
 
     num_frames = len(frames)
     num_used = int(amount_used*num_frames)
