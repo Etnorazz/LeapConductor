@@ -2,6 +2,7 @@ import os,sys
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0,parentdir) 
 from lib import Leap 
+from learn.learn import GestureLearner
 
 class Listener(Leap.Listener): 
     def __init__(self): 
@@ -54,14 +55,14 @@ print ">>",
 while True: 
     command = sys.stdin.readline()
     if "learn" in command: 
-        print "Enter the name of the gesture: ", 
-        gesture_name = sys.stdin.readline()
+        print "Enter the number of the gesture: ", 
+        gesture_name = float(sys.stdin.readline())
         gesture_list = []
         listen(gesture_list)
 
-        """gLearner = GestureLearner() 
-        gLearner.learn(gesture_list) 
-        gLearner.save()"""
+        gLearner = GestureLearner() 
+        gLearner.learn(gesture_list,[gesture_name for i in gesture_list]) 
+        gLearner.save()
     elif "recognize" in command: 
         print "recognize" 
         print ">>", 
