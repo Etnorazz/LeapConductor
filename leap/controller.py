@@ -1,6 +1,7 @@
 from lib import Leap
 from abletonactions import *
-from tempo import TempoRecognizer
+from tempo import TempoListener
+from startgesture import *
 from MidiInterface import *
 
 # Query gesture information and communicate with Ableton
@@ -11,7 +12,10 @@ class AbletonController:
 
     """
     supported_gestures = {
-        'tempoChange': (handleTempoChange, TempoRecognizer),
+        'tempoChange': (tempoChangeAction, TempoListener),
+        'stopTrack': (trackStopAction, StopTrackListener),
+        'lowerVolume': (lowerVolumeAction, LowerVolumeListener),
+        'raiseVolume': (raiseVolumeAction, RaiseVolumeListener),
     }
 
 

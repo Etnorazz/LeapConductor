@@ -2,9 +2,9 @@ from lib import Leap
 import time
 from utils import *
 
-class TempoRecognizer(Leap.Listener):
+class TempoListener(Leap.Listener):
     def __init__(self,callback, controller):
-        super(TempoRecognizer,self).__init__()
+        super(TempoListener,self).__init__()
 
         self.average_velocity = Leap.Vector(0,0,0)
         self.angle_history = []
@@ -68,13 +68,12 @@ class TempoRecognizer(Leap.Listener):
         frame = controller.frame()
 
         hands = frame.hands()
-        if len(hands)>0:
-            hand = hands[0]
-            fingers = hand.fingers()
-            if len(fingers)>0:
-                finger = fingers[0]
+        for hand in hands:
+            for finger in hand.fingers():
+                if finger.isTool():
+                    posistion = finger.tip().position
+                    velocity = finger.velocity()
 
-                posistion = finger.tip().position
-                velocity = finger.velocity()
+                    self.update_velocity(velocity)
 
-                self.update_velocity(velocity)
+                    return

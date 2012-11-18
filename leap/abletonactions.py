@@ -1,6 +1,6 @@
 ## Event handlers for gesture events
 
-def handleTempoChange(controller, bpm):
+def tempoChangeAction(controller, bpm):
     print "Received tempo %f " % bpm 
     controller.midi_interface.set_tempo(bpm)
 
@@ -10,8 +10,8 @@ def __init__():
 def trackStartAction():
     pass
 
-def trackStopAction():
-    pass
+def trackStopAction(controller):
+    print "Stop Track"
 
 def songStartAction():
     pass
@@ -19,8 +19,8 @@ def songStartAction():
 def songStopAction():
     pass
 
-def volumeUpAction():
-    pass
+def lowerVolumeAction(controller):
+    print "Lower Volume"
 
-def volumeDownAction():
-    pass
+def raiseVolumeAction(controller):
+    print "Raise Volume"
