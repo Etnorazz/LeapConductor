@@ -2,15 +2,7 @@ from lib import Leap
 import sys
 import math
 import time
-
-def dot(vec1,vec2):
-    return vec1.x*vec2.x + vec1.y*vec2.y + vec1.z*vec2.z
-def norm(vec):
-    return math.sqrt(vec.x*vec.x + vec.y*vec.y + vec.z*vec.z)
-def mul(vec,a):
-    return Leap.Vector(vec.x*a,vec.y*a,vec.z*a)
-def add(vec1,vec2):
-    return Leap.Vector(vec1.x+vec2.x, vec1.y+vec2.y, vec1.z*vec2.z)
+from utils import *
 
 class TempoRecognizer:
     def __init__(self,callback):
@@ -30,7 +22,7 @@ class TempoRecognizer:
         self.threshold_angle = .7
         self.threshold_speed = .1
 
-    def change(self,alpha = None):
+    def change(self,alpha = None,debug = False):
         if not alpha:
             alpha = self.default_alpha
         if self.last_change_time:
@@ -38,7 +30,8 @@ class TempoRecognizer:
             if delta > self.threshold_speed:
                 self.bpm = (1-alpha)*self.bpm + alpha*(60/delta)
                 self.callback(self.bpm)
-                print "BPM:",self.bpm
+                if debug:
+                    print "BPM:",self.bpm
 
         self.last_change_time = time.time()
 
