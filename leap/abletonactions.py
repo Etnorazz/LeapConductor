@@ -1,7 +1,6 @@
-
-def handleTempoChange(bpm):
-    print "Received tempo %f" % bpm
-
+def handleTempoChange(controller, bpm):
+    print "Received tempo %f from controller " % bpm 
+    print controller
 
 def __init__():
     pass

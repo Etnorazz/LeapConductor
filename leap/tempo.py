@@ -5,7 +5,7 @@ import time
 from utils import *
 
 class TempoRecognizer:
-    def __init__(self,callback):
+    def __init__(self,callback, controller):
         self.average_velocity = Leap.Vector(0,0,0)
         self.angle_history = []
         self.velocity_history = []
@@ -16,6 +16,7 @@ class TempoRecognizer:
         self.bpm = 0
 
         self.callback = callback
+        self.controller = controller
 
         #settings
         self.default_alpha = .3 #for the kalman filters
@@ -29,7 +30,7 @@ class TempoRecognizer:
             delta = time.time() - self.last_change_time
             if delta > self.threshold_speed:
                 self.bpm = (1-alpha)*self.bpm + alpha*(30/delta)
-                self.callback(self.bpm)
+                self.callback(self.controller, self.bpm)
                 if debug:
                     print "BPM:",self.bpm
 
