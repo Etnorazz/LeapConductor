@@ -18,7 +18,6 @@ class TempoRecognizer:
         self.angle_history = []
         self.velocity_history = []
 
-        self._freeze = False
         self.changing = False
 
         self.last_change_time = None
@@ -29,18 +28,15 @@ class TempoRecognizer:
         #settings
         self.default_alpha = .3 #for the kalman filters
         self.threshold_angle = .7
-        self.threshold_bpm = .1
-
-    def freeze(self):
-        self._freeze = True
+        self.threshold_speed = .1
 
     def change(self,alpha = None):
         if not alpha:
             alpha = self.default_alpha
         if self.last_change_time:
             delta = time.time() - self.last_change_time
-            if delta > self.threshold_bpm:
-                self.bpm = (1-alpha)*self.bpm + alpha*delta
+            if delta > self.threshold_speed:
+                self.bpm = (1-alpha)*self.bpm + alpha*(60/delta)
                 self.callback(self.bpm)
                 print "BPM:",self.bpm
 
@@ -65,8 +61,6 @@ class TempoRecognizer:
         self.velocity_history.append(norm(self.average_velocity))
 
     def register_frame(self,frame):
-        if self._freeze:
-            return
         hands = frame.hands()
         if len(hands)>0:
             hand = hands[0]

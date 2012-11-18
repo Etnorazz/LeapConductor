@@ -1,7 +1,7 @@
 from lib import Leap
 import sys
 from controller import AbletonController
-from gestures import TempoRecognizer
+from tempo import TempoRecognizer
 
 def f(a):
     pass
@@ -30,8 +30,6 @@ def main():
     # Keep this process running until Enter is pressed
     print "Press Enter to quit..."
     sys.stdin.readline()
-    print "Showing"
-    listener.gr.freeze()
 
     # The controller must be disposed of before the listener
     controller = None

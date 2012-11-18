@@ -17,8 +17,9 @@ class AbletonController:
     def __init__(self, gestures):
         self.recognizers = []
         for g_name in gestures:
-            recognizer = AbletonController.supported_gestures[g_name][1](AbletonController.supported_gestures[g_name])
-            self.recognizers.append(recognizer)
+            callback = AbletonController.supported_gestures[g_name][0]
+            recognizer = AbletonController.supported_gestures[g_name][1]
+            self.recognizers.append(recognizer(callback))
             print "Initialized a recognizer for %s" % g_name
 
     def dispatch(self, frame):
