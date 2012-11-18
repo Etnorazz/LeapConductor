@@ -1,6 +1,7 @@
 from lib import Leap
 import sys
 import math
+import time
 
 class MotionState:
     def __init__(self):
@@ -24,19 +25,42 @@ def threshold(l,value):
         else:
             yield 0
 
-class GestureRecognizer:
-    def __init__(self):
+class TempoRecognizer:
+    def __init__(self,callback):
         self.average_velocity = Leap.Vector(0,0,0)
         self.angle_history = []
         self.velocity_history = []
+
         self._freeze = False
+        self.changing = False
+
+        self.last_change_time = None
+        self.bpm = 0
+
+        self.callback = callback
 
     def freeze(self):
         self._freeze = True
+
+    def change(self,alpha = .3):
+        if self.last_change_time:
+            delta = time.time() - self.last_change_time
+            self.bpm = (1-alpha)*self.bpm + alpha*delta
+            self.callback(self.bpm)
+            print "BPM:",self.bpm
+
+        self.last_change_time = time.time()
+
     def update_velocity(self,velocity,alpha = .3):
         n = norm(self.average_velocity)*norm(velocity)
         if n>=0.01:
             angle = dot(self.average_velocity,velocity)/(n)
+            if angle<.7:
+                if not self.changing:
+                    self.change()
+                self.changing = True
+            else:
+                self.changing = False
             self.angle_history.append(angle)
 
         self.average_velocity = add(mul(self.average_velocity,(1-alpha)),mul(velocity,alpha))
@@ -56,13 +80,14 @@ class GestureRecognizer:
                 velocity = finger.velocity()
 
                 self.update_velocity(velocity)
+
     def show(self):
         import matplotlib.pyplot as plt
         x = range(len(self.velocity_history))
         y = self.velocity_history
 
         x2 = range(len(self.angle_history))
-        y2 = [abs(i) for i in threshold(self.angle_history,.8)]
+        y2 = [abs(i) for i in self.angle_history]
 
         #plt.plot(x,y)
         #plt.show()

@@ -1,6 +1,9 @@
 class AbletonAction:
     """
     """
+    def tempoChange(self, bpm):
+        print "Detected tempo %f" % bpm
+
     def __init__(self):
         pass
     
@@ -14,9 +17,6 @@ class AbletonAction:
         pass
 
     def songStopAction(self):
-        pass
-
-    def tempoChange(self, bpm):
         pass
 
     def volumeUpAction(self):
