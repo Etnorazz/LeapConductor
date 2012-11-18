@@ -32,7 +32,7 @@ def getNumHands(frame):
 
 def avgFingers(frames):
     """
-        Return the average number of fingers per hand
+        Return the square of the average number of fingers 
     """
     avg_fingers = sum([getNumFingers(frame) for frame in frames])  / len(frames)
     avg_fingers = avg_fingers ** 8

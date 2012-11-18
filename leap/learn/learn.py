@@ -18,6 +18,7 @@ class GestureLearner:
         self.classifications = []
         self.keys = {}
         self.index = 0
+        self.max_length = 0
 
     def get_feature_vector(self,gesture):
         """
@@ -55,11 +56,21 @@ class GestureLearner:
         """
             Predict a classification for the given feature
         """
+        if len(gesture) > self.max_length:
+            self.max_length = len(gesture)
         vector = self.get_feature_vector(gesture)
         num = self.classifier.predict([vector])[0]
         for key,value in self.keys.items():
             if value == num:
+                print self.classifier.decision_function([vector])
                 return key
+
+    def load_classifier(self, filename="classifier.pickle"):
+        """
+            Load the classifier
+        """
+        with open(filename,"r") as f:
+            self.classifier = pickle.load(f)
 
     def save_classifier(self,filename="classifier.pickle"):
         """
