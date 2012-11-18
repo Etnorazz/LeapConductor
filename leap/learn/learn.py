@@ -7,7 +7,8 @@ feature_generators = [
     features.average_velocity,
     features.fingerVariance,
     features.avgFingers,
-    features.velocity_histogram
+    features.velocity_histogram,
+    features.position_histogram
 ]
 
 class GestureLearner:
