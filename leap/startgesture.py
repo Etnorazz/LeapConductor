@@ -1,6 +1,6 @@
 from lib import Leap
 import sys 
-
+"""
 def main(): 
     listener = StopTrackListener() 
     controller = Leap.Controller(listener) 
@@ -16,7 +16,7 @@ def main():
     sys.stdin.readline() 
 
     controller = None
-
+"""
 
 class StopTrackListener(Leap.Listener): 
 
@@ -87,4 +87,3 @@ class RaiseVolumeListener(LowerVolumeListener):
 
     def shouldAppend(self, vel): 
         return vel < -200
-main()

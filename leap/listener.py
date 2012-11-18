@@ -6,10 +6,10 @@ from tempo import TempoRecognizer
 def f(a):
     pass
 class LeapListener(Leap.Listener):
-    def __init__(self, gestures):
+    def __init__(self):
         print "wtf"
         super(LeapListener,self).__init__()
-        self.controller = AbletonController(gestures)
+        #self.controller = AbletonController(gestures)
 
     def onInit(self, controller):
         print "Initialized"
@@ -21,11 +21,18 @@ class LeapListener(Leap.Listener):
         print "Disconnected"
 
     def onFrame(self,controller):
-        self.controller.dispatch(controller.frame())
+        #self.controller.dispatch(controller.frame())
+        frame = controller.frame()
+        hands = frame.hands()
+        if len(hands) > 0:
+            hand = hands[0]
+            fingers = hand.fingers()
+            print len(hands), len(fingers)
 
 def main():
     # Create a sample listener and assign it to a controller to receive events
-    listener = LeapListener(['tempoChange', 'volumeUp', 'volumeDown'])
+    #listener = LeapListener(['tempoChange', ])#'volumeUp', 'volumeDown'])
+    listener = LeapListener()
     controller = Leap.Controller(listener)
 
     # Keep this process running until Enter is pressed
