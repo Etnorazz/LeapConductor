@@ -150,11 +150,11 @@ def hand_velocity_histogram(frames,bins = 4,range=(-1.,1.)):
     for frame in frames:
         for hand in frame.hands():
             v = hand.velocity()
-            vector = Leap.Vector(v.x,v.y,v.z)
-            x = v.x/utils.norm(vector)
-            y = v.y/utils.norm(vector)
-            z = v.z/utils.norm(vector)
-            l[hround(x)][hround(y)][hround(z)] += 1
+            if v:
+                x = v.x/utils.norm(v)
+                y = v.y/utils.norm(v)
+                z = v.z/utils.norm(v)
+                l[hround(x)][hround(y)][hround(z)] += 1
     return l
 
 def palm_normal_histogram(frames,bins = 4,range=(-1.,1.)):
@@ -167,12 +167,13 @@ def palm_normal_histogram(frames,bins = 4,range=(-1.,1.)):
     l = list_3d(bins)
     for frame in frames:
         for hand in frame.hands():
-            v = hand.palm().direction
-            vector = Leap.Vector(v.x,v.y,v.z)
-            x = v.x/utils.norm(vector)
-            y = v.y/utils.norm(vector)
-            z = v.z/utils.norm(vector)
-            l[hround(x)][hround(y)][hround(z)] += 1
+            palm = hand.palm()
+            if palm:
+                v = palm.direction
+                x = v.x/utils.norm(v)
+                y = v.y/utils.norm(v)
+                z = v.z/utils.norm(v)
+                l[hround(x)][hround(y)][hround(z)] += 1
     return l
 
 def position_histogram(frames,bins = 4,range=(-1.,1.)):
@@ -210,8 +211,10 @@ def palm_position_histogram(frames,bins = 4,range=(-1.,1.)):
     positions = []
     for frame in frames:
         for hand in frame.hands():
-            p = hand.palm().position
-            positions.append(p)
+            palm = hand.palm()
+            if palm:
+                p = palm.position
+                positions.append(p)
     average_p = utils.ave_v(positions)
     for index,position in enumerate(positions):
         positions[index] = utils.subtract(position,average_p)
