@@ -16,10 +16,10 @@ class MidiInterface():
         x = int(math.floor(x/7.709))
         self.send("/tempo %d" % x)
     def stop_track(self, track_num):
-        data = "/track%d /stop 1" % track_num
+        data = "/track%d /stop 127" % track_num
         self.send(data)
     def play_track(self, track_num):
-        data = "/track%d /play 1" % track_num
+        data = "/track%d /play 127" % track_num
         self.send(data)
     def vol_track(self, track_num, vol):
         data = "/track%d /vol %d" % (track_num, vol)
