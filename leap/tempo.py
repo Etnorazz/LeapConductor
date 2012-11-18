@@ -5,6 +5,7 @@ import time
 from utils import *
 
 class TempoRecognizer:
+
     def __init__(self,callback):
         self.average_velocity = Leap.Vector(0,0,0)
         self.angle_history = []
@@ -22,9 +23,13 @@ class TempoRecognizer:
         self.threshold_angle = .7
         self.threshold_speed = .1
 
+    def value(self):
+        return self.bpm
+
     def change(self,alpha = None,debug = False):
         if not alpha:
             alpha = self.default_alpha
+
         if self.last_change_time:
             delta = time.time() - self.last_change_time
             if delta > self.threshold_speed:
