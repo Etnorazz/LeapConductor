@@ -1,6 +1,4 @@
 from lib import Leap
-import sys
-import math
 import time
 from utils import *
 
