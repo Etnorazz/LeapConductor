@@ -1,9 +1,12 @@
 from sklearn import svm
 from learn import features
 import pickle
+import utils
 
 feature_generators = [
-    features.feature1, 
+    features.length,
+    features.average_position,
+    features.average_velocity,
 ]
 
 class GestureLearner:
@@ -17,7 +20,8 @@ class GestureLearner:
         vector = []
         for generator in feature_generators:
             vector.append(generator(gesture))
-        return vector
+
+        return utils.flatten(vector)
 
     def learn(self,gestures,classifications):
         """
