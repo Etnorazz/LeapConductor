@@ -1,26 +1,25 @@
-class AbletonAction:
-    """
-    """
-    def tempoChange(self, bpm):
-        print "Detected tempo %f" % bpm
 
-    def __init__(self):
-        pass
-    
-    def trackStartAction(self):
-        pass
+def handleTempoChange(bpm):
+    print "Received tempo %f" % bpm
 
-    def trackStopAction(self):
-        pass
 
-    def songStartAction(self):
-        pass
+def __init__():
+    pass
 
-    def songStopAction(self):
-        pass
+def trackStartAction():
+    pass
 
-    def volumeUpAction(self):
-        pass
+def trackStopAction():
+    pass
 
-    def volumeDownAction(self):
-        pass
+def songStartAction():
+    pass
+
+def songStopAction():
+    pass
+
+def volumeUpAction():
+    pass
+
+def volumeDownAction():
+    pass
