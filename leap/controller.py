@@ -1,6 +1,7 @@
 from lib import Leap
 from abletonactions import *
 from tempo import TempoRecognizer
+from MidiInterface import *
 
 # Query gesture information and communicate with Ableton
 # to control music
@@ -15,7 +16,7 @@ class AbletonController:
 
 
     def __init__(self, gestures):
-        #self.midi_interface = MidiInterface()
+        self.midi_interface = MidiInterface()
         self.recognizers = []
         for g_name in gestures:
             callback = AbletonController.supported_gestures[g_name][0]
