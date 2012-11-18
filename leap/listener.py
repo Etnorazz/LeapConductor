@@ -2,10 +2,12 @@ from lib import Leap
 import sys
 from gestures import TempoRecognizer
 
+def f(a):
+    pass
 class LeapListener(Leap.Listener):
     def __init__(self,*args,**kwargs):
         super(LeapListener,self).__init__(*args,**kwargs)
-        self.gr = TempoRecognizer()
+        self.gr = TempoRecognizer(f)
     def onInit(self, controller):
         print "Initialized"
 
