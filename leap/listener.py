@@ -7,6 +7,7 @@ def f(a):
     pass
 class LeapListener(Leap.Listener):
     def __init__(self, gestures):
+        print "wtf"
         super(LeapListener,self).__init__()
         self.controller = AbletonController(gestures)
 

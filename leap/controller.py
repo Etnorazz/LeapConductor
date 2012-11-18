@@ -15,8 +15,8 @@ class AbletonController:
     supported_gestures = {
         # (callback, recognizer, default value, timeout)
         'tempoChange': (handleTempoChange, TempoRecognizer, 97.19, float('inf')),
-        'volumeUp': (handleVolumeUp, LowerVolume, 0, float('inf')),
-        'volumeDown': (handleVolumeDown, RaiseVolume, 0, float('inf')),
+        'volumeUp': (handleVolumeUp, LowerVolumeListener, 0, float('inf')),
+        'volumeDown': (handleVolumeDown, RaiseVolumeListener, 0, float('inf')),
     }
     last_change = {
     }
@@ -26,6 +26,8 @@ class AbletonController:
         self.midi_interface = MidiInterface()
         self.recognizers = []
         self.period = period
+
+        self.current_vol = 108.0
 
         print "Initializing a recognizer"
         for g_name in gestures:

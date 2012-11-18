@@ -21,8 +21,12 @@ def songStartAction():
 def songStopAction():
     pass
 
-def handleVolumeUp(controller, ):
-    pass
+def handleVolumeUp(controller, vol=2):
+    tracknum = 1
+    volume = controller.current_vol+ vol
+    controller.midi_interface.vol_track(tracknum, volume)
 
-def volumeDownAction():
-    pass
+def handleVolumeDown(controller, vol=2):
+    tracknum = 1
+    volume = controller.current_vol - vol
+    controller.midi_interface.vol_track(tracknum, volume)
