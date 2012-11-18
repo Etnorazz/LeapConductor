@@ -56,8 +56,7 @@ def guess(gLearner):
     listener.start_recording()
     sys.stdin.readline()
     gesture_list = listener.stop_recording()
-
-    print gLearner.predict(gesture_list)
+    print hex(gLearner.predict(gesture_list)).decode("hex")
 
 
 print """Hello, welcome to the gesture learner, please enter one of the following options: 
