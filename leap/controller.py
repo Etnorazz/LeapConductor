@@ -1,8 +1,12 @@
 from lib import Leap
 from abletonactions import *
+
 from tempo import TempoListener
 from startgesture import *
+from stopgesture import *
+
 from MidiInterface import *
+import threading, time
 
 # Query gesture information and communicate with Ableton
 # to control music
@@ -16,6 +20,7 @@ class AbletonController:
         'stopTrack': (trackStopAction, StopTrackListener),
         'lowerVolume': (lowerVolumeAction, LowerVolumeListener),
         'raiseVolume': (raiseVolumeAction, RaiseVolumeListener),
+        'stopAll': (stopAllAction, StopAllListener)
     }
 
 
