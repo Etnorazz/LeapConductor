@@ -62,7 +62,6 @@ while True:
         gesture_list = []
         listen(gesture_list)
 
-        gLearner = GestureLearner() 
         gLearner.register_data(gesture_list, [gesture_name for i in gesture_list])
         gLearner.save_data()
     elif "recognize" in command: 

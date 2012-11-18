@@ -29,12 +29,17 @@ class GestureLearner:
             Generate a list of feature vectors and train the classifier on them
         """
         feature_vectors = []
+
         for gesture in gestures:
             vector = self.get_feature_vector(gesture)
             feature_vectors.append(vector)
 
+        print self.classifications
+
         self.feature_vectors += feature_vectors
         self.classifications += classifications
+        
+        print self.classifications
 
     def learn(self):
         self.classifier.fit(self.feature_vectors,self.classifications)
@@ -64,5 +69,6 @@ class GestureLearner:
         """
             Save the classifier to a file
         """
-        with open(filename,"a") as f:
+        print self.classifications
+        with open(filename,"w") as f:
             pickle.dump([self.feature_vectors,self.classifications],f)
