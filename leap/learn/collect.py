@@ -29,48 +29,52 @@ def listen(gesture_list):
 
     print "Press Enter to toggle recording" 
     print "Press q + Enter to quit"
-    print ">>",
+    print "Enter to start recording",
     while True: 
         letter = sys.stdin.readline()
         if letter[0]  == 'q': 
             gesture_list.append(listener.stop_recording())
             print "Done recognizing gesture"
-            print ">>",
+            print "Enter Command: ",
             break
         if listener.recording: 
             print "Stoping record" 
-            print ">>",
+            print "Enter to start recording",
             gesture_list.append(listener.stop_recording())
         else: 
             print "Starting record"
-            print ">>",
+            print "Recording...",
             listener.start_recording()
 
 print """Hello, welcome to the gesture learner, please enter one of the following options: 
-    learn - Learn a new gesture 
-    recognize - Let the program guess what you are trying to input 
-    q - Quit""" 
-print ">>",
+        learn - Learn a new gesture 
+        recognize - Let the program guess what you are trying to input 
+        q - Quit""" 
+print "Enter Command: ",
 while True: 
     command = sys.stdin.readline()
     if "learn" in command: 
         print "Enter the name of the gesture: ", 
-        gesture_name = sys.stdin.readline()
+        import hashlib
+        gesture_name = hashlib.md5()
+        gesture_name.update(sys.stdin.readline().lower)
+        gesture_name = gesture_name.digest() 
         gesture_list = []
         listen(gesture_list)
 
-        """gLearner = GestureLearner() 
-        gLearner.learn(gesture_list) 
-        gLearner.save()"""
+        gLearner = GestureLearner() 
+        gLearner.register_data(gesture_list, [gesture_name for i in gesture_list])
+        gLearner.save_data()
+
     elif "recognize" in command: 
         print "recognize" 
-        print ">>", 
+        print "Enter Command: ", 
     elif command[0] == "q": 
         print "Goodbye"
         break
     else: 
         print """Unrecognized command, usage:
-learn - Learn a new gesture 
-recognize - Let the program guess what you are trying to input 
-q - Quit""" 
-        print ">>",
+        learn - Learn a new gesture 
+        recognize - Let the program guess what you are trying to input 
+        q - Quit""" 
+        print "Enter Command: ",
