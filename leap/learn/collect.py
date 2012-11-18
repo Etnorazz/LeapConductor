@@ -47,6 +47,7 @@ def listen(gesture_list):
             print "Recording...",
             listener.start_recording()
 
+gLearner = GestureLearner() 
 print """Hello, welcome to the gesture learner, please enter one of the following options: 
         learn - Learn a new gesture 
         recognize - Let the program guess what you are trying to input 

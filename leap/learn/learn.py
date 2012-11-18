@@ -34,12 +34,8 @@ class GestureLearner:
             vector = self.get_feature_vector(gesture)
             feature_vectors.append(vector)
 
-        print self.classifications
-
         self.feature_vectors += feature_vectors
         self.classifications += classifications
-        
-        print self.classifications
 
     def learn(self):
         self.classifier.fit(self.feature_vectors,self.classifications)
@@ -50,7 +46,6 @@ class GestureLearner:
         """
         vector = get_feature_vector(gesture)
         self.classifier.predict(vector)
-
 
     def save_classifier(self,filename="classifier.pickle"):
         """
@@ -65,10 +60,10 @@ class GestureLearner:
         """
         with open(filename,"r") as f:
             self.feature_vectors,self.classifications = pickle.load(f)
+
     def save_data(self,filename="data.pickle"):
         """
             Save the classifier to a file
         """
-        print self.classifications
         with open(filename,"w") as f:
             pickle.dump([self.feature_vectors,self.classifications],f)
